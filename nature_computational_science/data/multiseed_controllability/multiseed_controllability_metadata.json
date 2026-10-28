@@ -1,0 +1,31 @@
+{
+  "input_files": {
+    "seed_20260712": "/Users/javadalizargar/Documents/untitled folder/adaptive-plasmonic-spheroid-control/biological physics paper/nature_computational_science/data/frozen_policy_validation/frozen_policy_validation_reduced_features.csv",
+    "seed_20260713": "/Users/javadalizargar/Documents/untitled folder/adaptive-plasmonic-spheroid-control/biological physics paper/nature_computational_science/data/external_boundary_validation/external_boundary_validation_reduced_scored.csv"
+  },
+  "features": [
+    "log_dose_capacity_number",
+    "log_reaction_number*observation_quality",
+    "log_reaction_drive_balance"
+  ],
+  "combined_equation": {
+    "weights": [
+      -0.015781033466695012,
+      1.4064106104902896,
+      0.9296326847481552,
+      -1.4823400436633147
+    ],
+    "means": [
+      -0.6254934863163991,
+      0.31948521898697707,
+      -3.527978904513797
+    ],
+    "scales": [
+      0.548938068601138,
+      0.3074327029040183,
+      0.576438954974458
+    ],
+    "equation": "logit(P_success) = -0.016 +1.406*z(log_dose_capacity_number; mean=-0.625, sd=0.549) +0.930*z(log_reaction_number*observation_quality; mean=0.319, sd=0.307) -1.482*z(log_reaction_drive_balance; mean=-3.53, sd=0.576)"
+  },
+  "validation": "Leave-one-seed-out selection and validation; each prediction is out-of-seed."
+}

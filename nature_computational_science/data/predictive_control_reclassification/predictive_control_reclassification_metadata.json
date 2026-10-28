@@ -1,0 +1,13 @@
+{
+  "features": [
+    "log_dose_capacity_number",
+    "log_reaction_number*observation_quality",
+    "log_reaction_drive_balance"
+  ],
+  "method": "Paired in-silico counterfactual reclassification using leave-one-seed-out controllability probabilities.",
+  "comparisons": [
+    "full_feedback_to_predictive_smoothed_full",
+    "full_feedback_to_frozen_minimax_geometry_dose"
+  ],
+  "bootstrap": "Cluster bootstrap by validation seed and uncertainty draw for paired success uplift."
+}

@@ -1,0 +1,5 @@
+controller,p_rank1,p_rank_last,mean_rank,p_top2
+Thermal-floor predictive,0.38491,0.0,1.92022,0.69487
+Smoothed predictive,0.27929,0.15958,2.409925,0.470365
+Constrained optimized,0.228355,0.117515,2.237565,0.651595
+Reduced-order MPC,0.107445,0.722905,3.43229,0.18317

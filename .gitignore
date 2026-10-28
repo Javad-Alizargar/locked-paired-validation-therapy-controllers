@@ -1,0 +1,16 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+.env
+*.log
+
+# Local manuscript exports and release archives
+release/
+*.zip
+*.tar.gz
+
+# Keep raw API records, processed data, figures, and manuscript files versioned.

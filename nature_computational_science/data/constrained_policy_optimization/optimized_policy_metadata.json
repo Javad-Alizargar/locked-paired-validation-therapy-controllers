@@ -1,0 +1,65 @@
+{
+  "train_seeds": [
+    20260730,
+    20260731
+  ],
+  "validation_seeds": [
+    20260720,
+    20260721,
+    20260722
+  ],
+  "n_train_draws": 8,
+  "n_candidates": 20,
+  "best_policy": {
+    "candidate_id": "random_03",
+    "controller": "predictive_thermal_floor_optimized",
+    "signals": [
+      "temperature",
+      "oxygen",
+      "ros"
+    ],
+    "max_intensity_w_cm2": 1.1284693317554293,
+    "prediction_gain": 0.6686819513091903,
+    "lookahead_s": 0.0,
+    "thermal_margin_c": 0.5499491470721016,
+    "estimator_window": 6,
+    "thermal_floor_warm_fraction": 0.4780982846543079,
+    "thermal_floor_temp_c": 48.520270522676654,
+    "thermal_floor_fraction": 0.437450917404906,
+    "maintenance_intensity_w_cm2": 0.21195466987902198,
+    "warm_target": 0.5222615366074965,
+    "long_delay_safety_c": 50.63784792425235,
+    "mid_delay_safety_c": 51.085748090764355,
+    "long_delay_ros_stop": 0.7669627966382626,
+    "mid_delay_ros_stop": 0.8515030165219564,
+    "long_delay_maintenance_i": 0.12527448514660336,
+    "mid_delay_maintenance_i": 0.125603628894834,
+    "oxygen_limited_floor_scale": 0.4216502100403009,
+    "ros_stop_after_floor": 0.85311423431906
+  },
+  "locked_boundary": {
+    "intercept": -0.016,
+    "terms": [
+      {
+        "feature": "log_dose_capacity_number",
+        "coef": 1.406,
+        "mean": -0.625,
+        "sd": 0.549
+      },
+      {
+        "feature": "log_reaction_number*observation_quality",
+        "coef": 0.93,
+        "mean": 0.319,
+        "sd": 0.307
+      },
+      {
+        "feature": "log_reaction_drive_balance",
+        "coef": -1.482,
+        "mean": -3.53,
+        "sd": 0.576
+      }
+    ],
+    "source": "Step 7 interpretation-only combined equation; used here as a locked scoring rule."
+  },
+  "decision": "NOT CONFIRMED: constrained optimization improved the search discipline but did not yet satisfy the validation gate."
+}

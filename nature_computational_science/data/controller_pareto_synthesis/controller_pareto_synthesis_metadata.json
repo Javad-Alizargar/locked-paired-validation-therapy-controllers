@@ -1,0 +1,10 @@
+{
+  "controllers": {
+    "Smoothed predictive": "nature_computational_science\\data\\locked_large_validation\\locked_large_validation_paired_failure_modes.csv",
+    "Thermal-floor predictive": "nature_computational_science\\data\\thermal_floor_predictive_validation\\thermal_floor_paired_failure_modes.csv",
+    "Constrained optimized": "nature_computational_science\\data\\constrained_policy_optimization\\optimized_policy_locked_validation_pairs.csv",
+    "Reduced-order MPC": "nature_computational_science\\data\\reduced_mpc_pareto_validation\\reduced_mpc_paired_failure_modes.csv"
+  },
+  "purpose": "Final synthesis across locked controller-family validations.",
+  "claim_boundary": "Method/software validation and Pareto failure-mode analysis, not clinical protocol superiority."
+}

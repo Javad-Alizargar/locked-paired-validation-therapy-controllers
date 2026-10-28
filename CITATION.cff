@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite the archived release and the article."
+title: "Locked paired validation of closed-loop therapy software: controller rankings are not robust to analysis choices"
+type: software
+authors:
+  - family-names: "Alizargar"
+    given-names: "Javad"
+    affiliation: "Department of Nursing, National Taipei University of Nursing and Health Sciences, Taipei, Taiwan"
+    orcid: "https://orcid.org/0000-0003-2966-1315"
+abstract: >-
+  Reproducibility package for a PeerJ Computer Science Research Article on the
+  evaluation of delayed-feedback controllers for coupled photothermal-photodynamic
+  simulation. The package contains the locked validation atlas, the frozen
+  predicted-baseline-success scoring rule, a cluster-robust inference pipeline
+  (bootstrap intervals, sign-flip permutation tests, Holm correction, minimum
+  detectable effects), a specification curve, Pareto dominance and Dirichlet
+  weight-sensitivity analyses, and the manuscript build.
+keywords:
+  - closed-loop control
+  - therapy software
+  - validation protocol
+  - cluster bootstrap
+  - permutation test
+  - multiplicity correction
+  - specification curve
+  - Pareto analysis
+  - reproducibility
+  - photothermal-photodynamic simulation
+version: "1.0.0"
+date-released: "2026-10-28"
+license: MIT
+repository-code: "https://github.com/Javad-Alizargar/locked-paired-validation-therapy-controllers"

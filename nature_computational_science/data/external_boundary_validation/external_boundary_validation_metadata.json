@@ -1,0 +1,35 @@
+{
+  "seed": 20260713,
+  "n_draws": 16,
+  "boundary": {
+    "intercept": -0.129,
+    "terms": [
+      {
+        "feature": "observation_quality",
+        "coef": 0.735,
+        "mean": 0.447,
+        "sd": 0.317
+      },
+      {
+        "feature": "log_reaction_number",
+        "coef": 0.643,
+        "mean": 0.726,
+        "sd": 0.436
+      },
+      {
+        "feature": "duty_proxy*log_dose_capacity_number",
+        "coef": 0.612,
+        "mean": -0.321,
+        "sd": 0.368
+      },
+      {
+        "feature": "log_thermal_diffusion_time_s",
+        "coef": 0.702,
+        "mean": 0.33,
+        "sd": 0.255
+      }
+    ],
+    "source": "step5_symbolic_boundary_discovery_result.md"
+  },
+  "note": "Exact frozen Step 5 boundary; no refitting, feature selection, or rescaling on this external atlas."
+}

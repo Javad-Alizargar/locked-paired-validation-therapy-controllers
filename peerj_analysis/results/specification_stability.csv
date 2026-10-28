@@ -1,0 +1,5 @@
+controller,fraction_positive,n_specifications,delta_min,delta_max
+Constrained optimized,0.375,16,-0.103515625,0.125
+Reduced-order MPC,0.0,16,-0.6171875,-0.28125
+Smoothed predictive,0.25,16,-0.099609375,0.01953125
+Thermal-floor predictive,0.25,16,-0.173828125,0.1171875

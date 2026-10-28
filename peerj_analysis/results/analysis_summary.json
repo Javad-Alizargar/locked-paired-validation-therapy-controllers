@@ -1,0 +1,103 @@
+{
+  "n_pairs_per_controller": 4608,
+  "n_controllers": 4,
+  "n_clusters": 384,
+  "rows_per_cluster": 12,
+  "bootstrap_replicates": 10000,
+  "signflip_replicates": 20000,
+  "random_seed": 20261028,
+  "strata": {
+    "frozen_equation": "logit(P_success) = -0.016 +1.406*z(log_dose_capacity_number; mean=-0.625, sd=0.549) +0.930*z(log_reaction_number*observation_quality; mean=0.319, sd=0.307) -1.482*z(log_reaction_drive_balance; mean=-3.53, sd=0.576)",
+    "features": [
+      "log_dose_capacity_number",
+      "log_reaction_number*observation_quality",
+      "log_reaction_drive_balance"
+    ],
+    "thresholds_from_reference_population": {
+      "q33": 0.3638499779911136,
+      "q67": 0.595474171696113
+    },
+    "thresholds_implied_in_validation_population": {
+      "q33": 0.42247974012843,
+      "q67": 0.6427019124032736
+    },
+    "validation_auc_overall": 0.6879189327454508,
+    "validation_auc_min_seed_family": 0.5903645833333333,
+    "external_auc_overall": 0.6104135453889725,
+    "external_brier_overall": 0.26464807346814523,
+    "stratum_counts": {
+      "high": 1812,
+      "transitional": 1674,
+      "low": 1122
+    },
+    "observed_success_by_stratum": {
+      "high": 0.7455849889624724,
+      "low": 0.38324420677361853,
+      "transitional": 0.4767025089605735
+    }
+  },
+  "primary_all_stratum": [
+    {
+      "controller": "Constrained optimized",
+      "delta_success": -0.006944,
+      "delta_success_ci_low": -0.037326,
+      "delta_success_ci_high": 0.023655,
+      "delta_success_p": 0.659167,
+      "delta_success_mde80": 0.043555
+    },
+    {
+      "controller": "Reduced-order MPC",
+      "delta_success": -0.432292,
+      "delta_success_ci_low": -0.471571,
+      "delta_success_ci_high": -0.390625,
+      "delta_success_p": 5e-05,
+      "delta_success_mde80": 0.058246
+    },
+    {
+      "controller": "Smoothed predictive",
+      "delta_success": -0.018446,
+      "delta_success_ci_low": -0.041233,
+      "delta_success_ci_high": 0.004991,
+      "delta_success_p": 0.121044,
+      "delta_success_mde80": 0.032956
+    },
+    {
+      "controller": "Thermal-floor predictive",
+      "delta_success": -0.048611,
+      "delta_success_ci_low": -0.081163,
+      "delta_success_ci_high": -0.016276,
+      "delta_success_p": 0.0045,
+      "delta_success_mde80": 0.046281
+    }
+  ],
+  "specification_sign_agreement": [
+    {
+      "controller": "Constrained optimized",
+      "fraction_positive": 0.375,
+      "n_specifications": 16,
+      "delta_min": -0.1035,
+      "delta_max": 0.125
+    },
+    {
+      "controller": "Reduced-order MPC",
+      "fraction_positive": 0.0,
+      "n_specifications": 16,
+      "delta_min": -0.6172,
+      "delta_max": -0.2812
+    },
+    {
+      "controller": "Smoothed predictive",
+      "fraction_positive": 0.25,
+      "n_specifications": 16,
+      "delta_min": -0.0996,
+      "delta_max": 0.0195
+    },
+    {
+      "controller": "Thermal-floor predictive",
+      "fraction_positive": 0.25,
+      "n_specifications": 16,
+      "delta_min": -0.1738,
+      "delta_max": 0.1172
+    }
+  ]
+}

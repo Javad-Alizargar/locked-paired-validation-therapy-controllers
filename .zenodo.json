@@ -1,0 +1,35 @@
+{
+  "title": "Locked paired validation of closed-loop therapy software: controller rankings are not robust to analysis choices",
+  "description": "<p>Reproducibility package for a PeerJ Computer Science Research Article. The study evaluates four delayed-feedback controllers for coupled photothermal-photodynamic simulation against delayed full feedback under a locked, paired, multiplicity-controlled protocol.</p><p>The package contains the trial-level locked validation atlas (4,608 paired trials per controller, 384 clusters), the frozen predicted-baseline-success scoring rule, the cluster-robust inference pipeline (10,000-replicate cluster bootstrap, 20,000-vector sign-flip permutation tests, Holm correction, minimum detectable effects at 80% power), a 16-specification curve per controller, Pareto dominance analysis and a 200,000-draw Dirichlet weight-sensitivity analysis, together with the manuscript source and build.</p><p>Headline result: no controller improves overall success. The apparent benefit in the predicted-low stratum (+0.031 to +0.056) does not survive Holm correction (adjusted p = 0.629 in every case). All four controllers are Pareto non-dominated, and the sign of the headline effect changes across defensible analysis specifications for three of the four controllers.</p>",
+  "creators": [
+    {
+      "name": "Alizargar, Javad",
+      "affiliation": "Department of Nursing, National Taipei University of Nursing and Health Sciences, Taipei, Taiwan",
+      "orcid": "0000-0003-2966-1315"
+    }
+  ],
+  "keywords": [
+    "closed-loop control",
+    "therapy software",
+    "validation protocol",
+    "cluster bootstrap",
+    "permutation test",
+    "multiplicity correction",
+    "specification curve",
+    "Pareto analysis",
+    "reproducibility",
+    "photothermal-photodynamic simulation",
+    "computational science"
+  ],
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
+  "language": "eng",
+  "related_identifiers": [
+    {
+      "relation": "isSupplementTo",
+      "identifier": "PeerJ Computer Science (submitted)",
+      "resource_type": "publication-article"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+model,trained_on_seed,tested_on_seed,model_family,auc,success_rate,n,features
+candidate_sparse,seed_20260712,seed_20260713,all,0.7142761036471714,0.50078125,3840,log_dose_capacity_number + log_reaction_number*observation_quality + log_reaction_drive_balance
+candidate_sparse,seed_20260712,seed_20260713,baseline,0.6964807852965748,0.525,960,log_dose_capacity_number + log_reaction_number*observation_quality + log_reaction_drive_balance
+candidate_sparse,seed_20260712,seed_20260713,large_geometry,0.6932869565217391,0.5208333333333334,960,log_dose_capacity_number + log_reaction_number*observation_quality + log_reaction_drive_balance
+candidate_sparse,seed_20260712,seed_20260713,low_photosensitizer,0.684301682040152,0.4947916666666667,960,log_dose_capacity_number + log_reaction_number*observation_quality + log_reaction_drive_balance
+candidate_sparse,seed_20260712,seed_20260713,slow_recovery,0.7801042321391158,0.4625,960,log_dose_capacity_number + log_reaction_number*observation_quality + log_reaction_drive_balance
+candidate_sparse,seed_20260713,seed_20260712,all,0.7914877868660483,0.4109375,3840,log_dose_capacity_number + log_reaction_number*observation_quality + log_reaction_drive_balance
+candidate_sparse,seed_20260713,seed_20260712,baseline,0.7712427339522393,0.41770833333333335,960,log_dose_capacity_number + log_reaction_number*observation_quality + log_reaction_drive_balance
+candidate_sparse,seed_20260713,seed_20260712,large_geometry,0.7854378805288112,0.440625,960,log_dose_capacity_number + log_reaction_number*observation_quality + log_reaction_drive_balance
+candidate_sparse,seed_20260713,seed_20260712,low_photosensitizer,0.817741935483871,0.3229166666666667,960,log_dose_capacity_number + log_reaction_number*observation_quality + log_reaction_drive_balance
+candidate_sparse,seed_20260713,seed_20260712,slow_recovery,0.8033207626230882,0.4625,960,log_dose_capacity_number + log_reaction_number*observation_quality + log_reaction_drive_balance
