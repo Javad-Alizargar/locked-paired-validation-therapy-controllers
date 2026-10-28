@@ -22,7 +22,7 @@ Javad Alizargar: Conceptualization, Methodology, Software, Validation, Formal an
 
 ## Data availability
 
-The trial-level paired dataset, the controller definitions, the frozen scoring rule, the endpoint definitions and the analysis code are archived at Zenodo (DOI: 10.5281/zenodo.XXXXXXXX) and at https://github.com/Javad-Alizargar/locked-paired-validation-therapy-controllers (release v1.0.0).
+The trial-level paired dataset, the controller definitions, the frozen scoring rule, the endpoint definitions and the analysis code are archived at Zenodo (DOI: 10.5281/zenodo.23726433) and at https://github.com/Javad-Alizargar/locked-paired-validation-therapy-controllers (release v1.0.0).
 
 ## Code availability
 

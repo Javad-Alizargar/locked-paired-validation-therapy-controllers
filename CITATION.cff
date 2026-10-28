@@ -30,3 +30,4 @@ version: "1.0.0"
 date-released: "2026-10-28"
 license: MIT
 repository-code: "https://github.com/Javad-Alizargar/locked-paired-validation-therapy-controllers"
+doi: "10.5281/zenodo.23726433"

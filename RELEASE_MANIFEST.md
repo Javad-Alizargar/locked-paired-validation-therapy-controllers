@@ -98,4 +98,5 @@ nothing that is not needed.
 
 - GitHub repository: `https://github.com/Javad-Alizargar/locked-paired-validation-therapy-controllers`
 - GitHub release tag: `v1.0.0`
-- Zenodo DOI: `10.5281/zenodo.TO_BE_FILLED`
+- Zenodo DOI: `10.5281/zenodo.23726433`
+- Zenodo concept DOI (all versions): `10.5281/zenodo.23726432`

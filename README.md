@@ -128,8 +128,12 @@ Predicted-low stratum (*n* = 1,122; baseline success 0.383):
 ## Data availability
 
 The trial-level paired dataset, the controller definitions, the frozen scoring
-rule, the endpoint definitions and the analysis code are archived with a
-persistent DOI (see `CITATION.cff`).
+rule, the endpoint definitions and the analysis code are archived at Zenodo:
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23726433.svg)](https://doi.org/10.5281/zenodo.23726433)
+
+The archived release is `v1.0.0`. The GitHub repository is
+https://github.com/Javad-Alizargar/locked-paired-validation-therapy-controllers.
 
 ## License
 
