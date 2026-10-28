@@ -115,15 +115,15 @@ def main() -> None:
              "Change is the paired risk difference against the same full-feedback baseline, with a 95% "
              "cluster-bootstrap interval (10,000 replicates) and a cluster-level sign-flip p-value "
              "(20,000 permutations). MDE is the minimum detectable effect at 80% power given the observed "
-             "cluster-robust standard error. These all-stratum contrasts are descriptive; the pre-declared "
-             "multiplicity-controlled family is the 12 controller x stratum tests reported in Table 3.")
+             "cluster-robust standard error. These all-stratum contrasts are descriptive; the locked "
+             "multiplicity-controlled family is the 12 controller × stratum tests reported in Table 3.")
     docx_table("Table 1. Success endpoints across the full locked validation atlas.", note1, h1, r1,
                OUT / "Table 1.docx", widths=[1.4, 0.5, 0.65, 0.7, 1.5, 0.5, 0.7, 0.65])
     md_table("Table 1. Success endpoints across the full locked validation atlas.", note1, h1, r1, OUT / "Table 1.md")
 
     # ---------------- Table 2: mechanism + energy
     h2 = ["Controller", "Thermal failure", "ROS failure", "Overheating",
-          "Delivered energy (J cm^-2)", "Pareto status"]
+          "Delivered energy (J cm⁻²)", "Pareto status"]
     r2 = []
     for _, r in p[p.stratum == "all"].sort_values("corder").iterrows():
         r2.append([
@@ -154,7 +154,7 @@ def main() -> None:
         ])
     note3 = ("Strata are terciles of a frozen logistic scoring rule for predicted baseline success. The rule was "
              "fitted on independent seeds and applied unchanged here, so stratum membership depends only on "
-             "pre-treatment design quantities and never on the controller outcome. The 12 controller x stratum "
+             "pre-treatment design quantities and never on the controller outcome. The 12 controller × stratum "
              "tests form the primary family for Holm adjustment. Exact p-values are reported to three decimal "
              "places; the minimum attainable p-value with 20,000 permutations is 0.00005.")
     docx_table("Table 3. Success change by predicted-baseline-success stratum.", note3, h3, r3,
@@ -166,10 +166,10 @@ def main() -> None:
     hs = ["Criterion", "Rule", "Meaning"]
     rs = [[r.criterion, r.rule, r.meaning] for _, r in ends.iterrows()]
     notes = ("Endpoint definitions were frozen before any controller outcome was examined. warm_fraction is the "
-             "fraction of the protocol window with 43 <= T <= 50 C; overheat_fraction is the fraction with T > 55 C; "
+             "fraction of the protocol window with 43 ≤ T ≤ 50 °C; overheat_fraction is the fraction with T > 55 °C; "
              "ros_threshold_fraction is the fraction with ROS dose at or above the singlet-oxygen threshold; "
-             "hypoxic_failure_fraction is the fraction with O2 < 5 uM and ROS below threshold.")
-    docx_table("Table S1. Frozen endpoint definitions.", notes, hs, rs, OUT / "Table S1.docx", widths=[1.3, 2.4, 3.0])
+             "hypoxic_failure_fraction is the fraction with O2 < 5 µM and ROS below threshold.")
+    docx_table("Table S1. Frozen endpoint definitions.", notes, hs, rs, OUT / "Supplemental Table S1.docx", widths=[1.3, 2.4, 3.0])
     md_table("Table S1. Frozen endpoint definitions.", notes, hs, rs, OUT / "Table S1.md")
 
     st = pd.read_csv(RES / "strata_audit.csv")
@@ -181,7 +181,7 @@ def main() -> None:
               "Discrimination is modest, which is why strata are reported as predicted-baseline-success bands "
               "rather than as a validated controllability construct.")
     docx_table("Table S2. Discrimination of the frozen scoring rule.", notes2, hs2, rs2,
-               OUT / "Table S2.docx", widths=[1.5, 0.9, 1.1, 0.4, 0.6, 0.9, 0.9])
+               OUT / "Supplemental Table S2.docx", widths=[1.5, 0.9, 1.1, 0.4, 0.6, 0.9, 0.9])
     md_table("Table S2. Discrimination of the frozen scoring rule.", notes2, hs2, rs2, OUT / "Table S2.md")
 
     ws = pd.read_csv(RES / "weight_sensitivity.csv")
@@ -193,7 +193,7 @@ def main() -> None:
               "This replaces the single fixed-weight utility used in the earlier analysis, which is not "
               "reproducible as a preference statement.")
     docx_table("Table S3. Rank stability under random objective weights.", notes3, hs3, rs3,
-               OUT / "Table S3.docx", widths=[1.7, 0.8, 0.8, 0.9, 0.8])
+               OUT / "Supplemental Table S3.docx", widths=[1.7, 0.8, 0.8, 0.9, 0.8])
     md_table("Table S3. Rank stability under random objective weights.", notes3, hs3, rs3, OUT / "Table S3.md")
 
 

@@ -1,6 +1,6 @@
 **Table 2. Failure-mode and energy endpoints.**
 
-| Controller | Thermal failure | ROS failure | Overheating | Delivered energy (J cm^-2) | Pareto status |
+| Controller | Thermal failure | ROS failure | Overheating | Delivered energy (J cm⁻²) | Pareto status |
 | --- | --- | --- | --- | --- | --- |
 | Smoothed predictive | +0.038 (0.016 to 0.060) | -0.023 (-0.036 to -0.013) | -0.012 (-0.024 to -0.000) | -23.5 (-29.5 to -17.5) | Non-dominated |
 | Thermal-floor predictive | -0.037 (-0.067 to -0.006) | -0.017 (-0.028 to -0.007) | +0.095 (0.081 to 0.110) | +44.2 (36.3 to 52.5) | Non-dominated |

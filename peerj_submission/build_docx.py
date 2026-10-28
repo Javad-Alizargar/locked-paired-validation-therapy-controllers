@@ -20,7 +20,7 @@ from docx.enum.section import WD_SECTION
 from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
-from docx.shared import Inches, Pt
+from docx.shared import Inches, Pt, RGBColor
 
 HERE = Path(__file__).resolve().parent
 SRC = HERE / "main_manuscript.md"
@@ -88,11 +88,45 @@ def configure(doc: Document) -> None:
     pf.space_after = Pt(6)
     pf.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE
 
+    # Use the built-in Heading styles so the document has a real outline
+    # (navigation pane, accessibility), but restyle them to the journal look:
+    # Times New Roman, black, left aligned, 12 pt body size.
+    for name, size, italic in (
+        ("Heading 1", 16, False),
+        ("Heading 2", 12, False),
+        ("Heading 3", 12, True),
+    ):
+        style = doc.styles[name]
+        style.font.name = "Times New Roman"
+        style.font.size = Pt(size)
+        style.font.bold = True
+        style.font.italic = italic
+        style.font.color.rgb = RGBColor(0, 0, 0)
+        srpr = style.element.get_or_add_rPr()
+        srfonts = srpr.find(qn("w:rFonts"))
+        if srfonts is None:
+            srfonts = OxmlElement("w:rFonts")
+            srpr.append(srfonts)
+        for attr in ("w:ascii", "w:hAnsi", "w:cs", "w:eastAsia"):
+            srfonts.set(qn(attr), "Times New Roman")
+        for attr in ("w:asciiTheme", "w:hAnsiTheme", "w:eastAsiaTheme", "w:cstheme"):
+            if srfonts.get(qn(attr)) is not None:
+                del srfonts.attrib[qn(attr)]
+        scolour = srpr.find(qn("w:color"))
+        if scolour is not None:
+            for attr in ("w:themeColor", "w:themeShade", "w:themeTint"):
+                if scolour.get(qn(attr)) is not None:
+                    del scolour.attrib[qn(attr)]
+        spf = style.paragraph_format
+        spf.alignment = WD_ALIGN_PARAGRAPH.LEFT
+        spf.keep_with_next = True
+        spf.line_spacing_rule = WD_LINE_SPACING.ONE_POINT_FIVE
+
     page_setup(doc.sections[0])
 
 
 def heading(doc: Document, text: str, level: int) -> None:
-    par = doc.add_paragraph()
+    par = doc.add_paragraph(style=f"Heading {level}")
     par.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
     par.paragraph_format.keep_with_next = True
     if level == 1:

@@ -175,32 +175,6 @@ def figure3() -> None:
 # --------------------------------------------------------------------- Figure 4
 
 def figure4() -> None:
-    s = pd.read_csv(RES / "specification_curve.csv")
-    s = s[(s.estimator == "paired cluster bootstrap") & (s.stratum == "all")].copy()
-    ctrls = list(CTRL_COLOR)
-    fig, axes = plt.subplots(1, 4, figsize=(7.4, 3.4), sharey=True)
-    for ax, c in zip(axes, ctrls):
-        g = s[s.controller == c].sort_values("delta").reset_index(drop=True)
-        colors = ["#c92a2a" if v < 0 else "#2f9e44" for v in g.delta]
-        ax.scatter(range(len(g)), g.delta, c=colors, s=14, zorder=3)
-        ax.axhline(0, color="#343a40", lw=0.9)
-        ax.set_title(CTRL_SHORT[c], fontsize=7.6)
-        ax.set_xlabel("Specification (sorted)")
-        ax.grid(axis="y", color="#dee2e6", lw=0.5)
-        ax.set_axisbelow(True)
-        frac = (g.delta > 0).mean()
-        ax.text(0.04, 0.94, f"{frac:.0%} positive", transform=ax.transAxes,
-                fontsize=7, va="top", color="#495057")
-    axes[0].set_ylabel("Paired change in success probability")
-    fig.suptitle("Sign of the headline effect flips across defensible analysis choices",
-                 fontsize=8.8, x=0.02, ha="left")
-    fig.tight_layout(rect=[0, 0, 1, 0.92])
-    _save(fig, "Figure 4.png")
-
-
-# --------------------------------------------------------------------- Figure 5
-
-def figure5() -> None:
     par = pd.read_csv(RES / "pareto_summary.csv")
     w = pd.read_csv(RES / "weight_sensitivity.csv").set_index("controller")
     fig, (ax1, ax2, ax3) = plt.subplots(
@@ -244,6 +218,32 @@ def figure5() -> None:
                bbox_to_anchor=(0.5, -0.01))
     fig.suptitle("All four controllers are Pareto non-dominated", fontsize=8.8, x=0.02, ha="left")
     fig.tight_layout(rect=[0, 0.06, 1, 0.93])
+    _save(fig, "Figure 4.png")
+
+
+# --------------------------------------------------------------------- Figure 5
+
+def figure5() -> None:
+    s = pd.read_csv(RES / "specification_curve.csv")
+    s = s[(s.estimator == "paired cluster bootstrap") & (s.stratum == "all")].copy()
+    ctrls = list(CTRL_COLOR)
+    fig, axes = plt.subplots(1, 4, figsize=(7.4, 3.4), sharey=True)
+    for ax, c in zip(axes, ctrls):
+        g = s[s.controller == c].sort_values("delta").reset_index(drop=True)
+        colors = ["#c92a2a" if v < 0 else "#2f9e44" for v in g.delta]
+        ax.scatter(range(len(g)), g.delta, c=colors, s=14, zorder=3)
+        ax.axhline(0, color="#343a40", lw=0.9)
+        ax.set_title(CTRL_SHORT[c], fontsize=7.6)
+        ax.set_xlabel("Specification (sorted)")
+        ax.grid(axis="y", color="#dee2e6", lw=0.5)
+        ax.set_axisbelow(True)
+        frac = (g.delta > 0).mean()
+        ax.text(0.04, 0.94, f"{frac:.0%} positive", transform=ax.transAxes,
+                fontsize=7, va="top", color="#495057")
+    axes[0].set_ylabel("Paired change in success probability")
+    fig.suptitle("Sign of the headline effect flips across defensible analysis choices",
+                 fontsize=8.8, x=0.02, ha="left")
+    fig.tight_layout(rect=[0, 0, 1, 0.92])
     _save(fig, "Figure 5.png")
 
 

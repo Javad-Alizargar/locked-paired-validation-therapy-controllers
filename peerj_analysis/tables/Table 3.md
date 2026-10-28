@@ -19,4 +19,4 @@
 | Constrained optimized | Predicted-high | 1812 | 0.746 | -0.047 (-0.090 to -0.003) | 0.035 | 0.245 | 0.062 |
 | Reduced-order MPC | Predicted-high | 1812 | 0.746 | -0.645 (-0.691 to -0.596) | <0.001 | <0.001 | 0.069 |
 
-*Strata are terciles of a frozen logistic scoring rule for predicted baseline success. The rule was fitted on independent seeds and applied unchanged here, so stratum membership depends only on pre-treatment design quantities and never on the controller outcome. The 12 controller x stratum tests form the primary family for Holm adjustment. Exact p-values are reported to three decimal places; the minimum attainable p-value with 20,000 permutations is 0.00005.*
+*Strata are terciles of a frozen logistic scoring rule for predicted baseline success. The rule was fitted on independent seeds and applied unchanged here, so stratum membership depends only on pre-treatment design quantities and never on the controller outcome. The 12 controller × stratum tests form the primary family for Holm adjustment. Exact p-values are reported to three decimal places; the minimum attainable p-value with 20,000 permutations is 0.00005.*

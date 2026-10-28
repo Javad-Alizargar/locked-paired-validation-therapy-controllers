@@ -2,13 +2,13 @@
 
 | Criterion | Rule | Meaning |
 | --- | --- | --- |
-| warm | warm_fraction >= 0.50 | fraction of the protocol window with 43 <= T <= 50 C |
-| ros | ros_threshold_fraction >= 0.50 | fraction of the window with ROS dose at or above the singlet-oxygen threshold |
-| hypoxia_ok | hypoxic_failure_fraction <= 0.35 | fraction of the window with O2 < 5 uM AND ROS below threshold |
-| safe_heat | overheat_fraction <= 0.05 and max_T <= 55 C | no thermal injury |
+| warm | warm_fraction ≥ 0.50 | fraction of the protocol window with 43 ≤ T ≤ 50 °C |
+| ros | ros_threshold_fraction ≥ 0.50 | fraction of the window with ROS dose at or above the singlet-oxygen threshold |
+| hypoxia_ok | hypoxic_failure_fraction ≤ 0.35 | fraction of the window with O2 < 5 µM AND ROS below threshold |
+| safe_heat | overheat_fraction ≤ 0.05 and max_T ≤ 55 °C | no thermal injury |
 | success | warm AND ros AND hypoxia_ok AND safe_heat | all four criteria simultaneously |
 | thermal_failure | NOT warm AND safe_heat | insufficient heating without thermal injury |
 | ros_failure | NOT ros | ROS dose below threshold |
 | overheat_failure | NOT safe_heat | thermal injury |
 
-*Endpoint definitions were frozen before any controller outcome was examined. warm_fraction is the fraction of the protocol window with 43 <= T <= 50 C; overheat_fraction is the fraction with T > 55 C; ros_threshold_fraction is the fraction with ROS dose at or above the singlet-oxygen threshold; hypoxic_failure_fraction is the fraction with O2 < 5 uM and ROS below threshold.*
+*Endpoint definitions were frozen before any controller outcome was examined. warm_fraction is the fraction of the protocol window with 43 ≤ T ≤ 50 °C; overheat_fraction is the fraction with T > 55 °C; ros_threshold_fraction is the fraction with ROS dose at or above the singlet-oxygen threshold; hypoxic_failure_fraction is the fraction with O2 < 5 µM and ROS below threshold.*

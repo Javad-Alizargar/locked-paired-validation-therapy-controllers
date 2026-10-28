@@ -40,8 +40,8 @@ Locked paired validation of therapy controllers
 
 ## Word count
 
-- Main text (Introduction through Conclusions): approximately 5,600 words
-- Abstract: 337 words (2,478 characters)
+- Main text (Introduction through Conclusions): approximately 5,900 words
+- Abstract: 337 words (2,497 characters)
 - Tables: 3 main, 3 supplementary
 - Figures: 5 main
 

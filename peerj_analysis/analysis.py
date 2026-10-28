@@ -4,9 +4,9 @@ PeerJ Computer Science re-analysis of the locked validation atlas.
 Design principles
 -----------------
 1. Every reported number is computed here from committed trial-level data.
-2. Inference respects the cluster structure (384 clusters = seed x family x draw,
+2. Inference respects the cluster structure (384 clusters = seed × family × draw,
    12 scenarios each, balanced).
-3. Multiplicity is controlled with Holm over pre-declared families.
+3. Multiplicity is controlled with Holm over locked families.
 4. Effect sizes are reported with 95% cluster-bootstrap intervals and MDE at 80% power.
 5. Strata are described for what they are: cross-fitted *predicted baseline success*
    terciles from a frozen equation trained on different seeds.
@@ -49,10 +49,10 @@ MECH_COLS = {
 }
 
 ENDPOINT_DEFINITIONS = [
-    ("warm", "warm_fraction >= 0.50", "fraction of the protocol window with 43 <= T <= 50 C"),
-    ("ros", "ros_threshold_fraction >= 0.50", "fraction of the window with ROS dose at or above the singlet-oxygen threshold"),
-    ("hypoxia_ok", "hypoxic_failure_fraction <= 0.35", "fraction of the window with O2 < 5 uM AND ROS below threshold"),
-    ("safe_heat", "overheat_fraction <= 0.05 and max_T <= 55 C", "no thermal injury"),
+    ("warm", "warm_fraction ≥ 0.50", "fraction of the protocol window with 43 ≤ T ≤ 50 °C"),
+    ("ros", "ros_threshold_fraction ≥ 0.50", "fraction of the window with ROS dose at or above the singlet-oxygen threshold"),
+    ("hypoxia_ok", "hypoxic_failure_fraction ≤ 0.35", "fraction of the window with O2 < 5 µM AND ROS below threshold"),
+    ("safe_heat", "overheat_fraction ≤ 0.05 and max_T ≤ 55 °C", "no thermal injury"),
     ("success", "warm AND ros AND hypoxia_ok AND safe_heat", "all four criteria simultaneously"),
     ("thermal_failure", "NOT warm AND safe_heat", "insufficient heating without thermal injury"),
     ("ros_failure", "NOT ros", "ROS dose below threshold"),
@@ -214,7 +214,7 @@ def build_primary(df: pd.DataFrame) -> pd.DataFrame:
             rows.append(row)
     out = pd.DataFrame(rows)
 
-    # Holm over the pre-declared primary family: success, 4 controllers x 3 strata (12 tests)
+    # Holm over the locked primary family: success, 4 controllers × 3 strata (12 tests)
     primary = out[out["stratum"] != "all"].copy()
     primary["delta_success_p_holm"] = holm(primary["delta_success_p"].tolist())
     out = out.merge(
