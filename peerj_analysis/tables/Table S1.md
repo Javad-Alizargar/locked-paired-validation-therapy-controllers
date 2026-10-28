@@ -20,4 +20,4 @@
 | external held-out (different seed) | seed_20260713 | slow_recovery | 960 | 0.668 | 0.463 | 0.543 |
 | external held-out (different seed) | seed_20260713 | all | 3840 | 0.610 | 0.501 | 0.492 |
 
-*Discrimination of the frozen scoring rule. The locked validation rows are the analysis population; the external row is a fully held-out seed that was never used to fit or to tune the rule. Discrimination is modest, which is why strata are reported as predicted-baseline-success bands rather than as a validated controllability construct.*
+*Retrospective discrimination: the score uses realised baseline average intensity and is not available before treatment. The external seed was not used to fit the rule. Held-out overall Brier score is 0.265. Recomputed band calibration is supplied in band_calibration.csv. No prospective predictive validity is claimed.*

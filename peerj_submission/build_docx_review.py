@@ -63,34 +63,14 @@ def load_table(num: str):
 
 
 def add_table(doc: Document, num: str) -> None:
-    title, header, data, foot = load_table(num)
-    par = doc.add_paragraph()
-    par.paragraph_format.keep_with_next = True
-    add_runs(par, title)
-
-    n_cols = len(header)
-    size = 8 if n_cols >= 7 else 9
-    table = doc.add_table(rows=1 + len(data), cols=n_cols)
-    table.style = "Table Grid"
-    table.autofit = True
-
-    def fill(cells, values, bold=False):
-        for cell, val in zip(cells, values):
-            cell.text = ""
-            run = cell.paragraphs[0].add_run(val)
-            run.font.size = Pt(size)
-            run.font.name = "Times New Roman"
-            run.bold = bold
-
-    fill(table.rows[0].cells, header, bold=True)
-    for row, values in zip(table.rows[1:], data):
-        fill(row.cells, values)
-
-    if foot:
-        par = doc.add_paragraph()
-        add_runs(par, foot)
-        for run in par.runs:
-            run.font.size = Pt(9)
+    """Reuse the verified standalone table, including widths and paragraph spacing."""
+    from copy import deepcopy
+    from docx.oxml.ns import qn
+    filename = f"Supplemental Table {num}.docx" if num.startswith("S") else f"Table {num}.docx"
+    source = Document(TABLE_MD / filename)
+    for element in source.element.body:
+        if element.tag != qn("w:sectPr"):
+            doc.element.body.insert(len(doc.element.body) - 1, deepcopy(element))
     doc.add_paragraph()
 
 

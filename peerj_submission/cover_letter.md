@@ -7,15 +7,13 @@ PeerJ Computer Science
 
 Dear Editor,
 
-We submit for consideration as a Research Article the manuscript entitled **"Locked paired validation of closed-loop therapy software: controller rankings are not robust to analysis choices"**.
+We submit the Research Article **"Reproducible paired evaluation of closed-loop therapy software: controller comparisons depend on sampling and scenario choices"**.
 
-The manuscript addresses a practical evaluation problem in scientific software. Closed-loop controllers for therapy are usually compared in a nominal simulation and judged on a single aggregate success rate. We show that this practice can reverse the ranking. We specify a locked paired-validation protocol, implement it as a reproducible analysis pipeline, and apply it to a 4,608-trial-per-controller atlas of four delayed-feedback controllers for coupled photothermal-photodynamic simulation.
+The contribution concerns reproducible evaluation of scientific control software. Four delayed-feedback alternatives are compared with a common baseline across 4,608 paired simulations each. The analysis explicitly retains shared parent draws across transformed model families, documents retrospective score provenance and final-time endpoint definitions, and reports approximate block-bootstrap uncertainty, exploratory adjusted tests, population sensitivity and descriptive Pareto trade-offs.
 
-The result is deliberately reported as a negative one. No controller improved overall success. The apparent benefit in a predicted-low stratum, +0.031 to +0.056, did not survive Holm correction across the 12 controller-by-stratum tests (adjusted p = 0.629 in every case). All four controllers were Pareto non-dominated, no weighting produced a majority winner, and the sign of the headline effect changed across 16 defensible analysis specifications. We regard this as the useful contribution: the protocol produces a bounded, reproducible answer even when the answer is that nothing wins.
+No alternative demonstrates improved overall success. Positive low-band estimates are imprecise before and after correction, and their band membership is unavailable before baseline simulation. The revised study makes the limitations of the Latin-hypercube sampling design and sign-flip assumptions explicit. It does not claim a new statistical theorem, clinical efficacy or a winning controller. We believe this auditable software case study fits the journal's computer-science audience.
 
-We believe the work fits the journal's scope because the contribution is methodological and software-oriented rather than clinical. It concerns how computational experiments are designed, how uncertainty is propagated into comparative claims, and how an analysis artefact should be structured so that a reader can regenerate every number. The case study is a simulation model, but the protocol is model-agnostic and transfers to other closed-loop software.
-
-The manuscript is original, has not been published previously, and is not under consideration elsewhere. The author has no competing interests. All code and trial-level data are archived with a persistent DOI, and a single entry point regenerates every table and figure.
+The manuscript is original and is not under consideration elsewhere. The author declares no competing interests. Original data are archived under DOI 10.5281/zenodo.23726433; revised code, results and manuscript are provided in public release v1.1.0 and the complete Supplemental Code S1 package. The earlier DOI is identified as the earlier version rather than being presented as an archive of the revision.
 
 Thank you for considering the submission.
 

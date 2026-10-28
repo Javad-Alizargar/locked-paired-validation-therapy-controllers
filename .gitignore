@@ -14,3 +14,7 @@ release/
 *.tar.gz
 
 # Keep raw API records, processed data, figures, and manuscript files versioned.
+
+# Local visual QA and assembled package
+.revision-qa/
+peerj_submission/upload_package/

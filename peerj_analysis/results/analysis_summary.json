@@ -1,8 +1,8 @@
 {
   "n_pairs_per_controller": 4608,
   "n_controllers": 4,
-  "n_clusters": 384,
-  "rows_per_cluster": 12,
+  "n_clusters": 96,
+  "rows_per_cluster": 48,
   "bootstrap_replicates": 10000,
   "signflip_replicates": 20000,
   "random_seed": 20261028,
@@ -34,40 +34,45 @@
       "high": 0.7455849889624724,
       "low": 0.38324420677361853,
       "transitional": 0.4767025089605735
+    },
+    "mean_predicted_by_stratum": {
+      "high": 0.7644436337477029,
+      "low": 0.26788804259222637,
+      "transitional": 0.48012082483563834
     }
   },
   "primary_all_stratum": [
     {
       "controller": "Constrained optimized",
       "delta_success": -0.006944,
-      "delta_success_ci_low": -0.037326,
-      "delta_success_ci_high": 0.023655,
-      "delta_success_p": 0.659167,
-      "delta_success_mde80": 0.043555
+      "delta_success_ci_low": -0.04579,
+      "delta_success_ci_high": 0.032992,
+      "delta_success_p": 0.737313,
+      "delta_success_mde80": 0.056124
     },
     {
       "controller": "Reduced-order MPC",
       "delta_success": -0.432292,
-      "delta_success_ci_low": -0.471571,
-      "delta_success_ci_high": -0.390625,
+      "delta_success_ci_low": -0.497401,
+      "delta_success_ci_high": -0.3648,
       "delta_success_p": 5e-05,
-      "delta_success_mde80": 0.058246
+      "delta_success_mde80": 0.093467
     },
     {
       "controller": "Smoothed predictive",
       "delta_success": -0.018446,
-      "delta_success_ci_low": -0.041233,
-      "delta_success_ci_high": 0.004991,
-      "delta_success_p": 0.121044,
-      "delta_success_mde80": 0.032956
+      "delta_success_ci_low": -0.050787,
+      "delta_success_ci_high": 0.013455,
+      "delta_success_p": 0.271686,
+      "delta_success_mde80": 0.046316
     },
     {
       "controller": "Thermal-floor predictive",
       "delta_success": -0.048611,
-      "delta_success_ci_low": -0.081163,
-      "delta_success_ci_high": -0.016276,
-      "delta_success_p": 0.0045,
-      "delta_success_mde80": 0.046281
+      "delta_success_ci_low": -0.096788,
+      "delta_success_ci_high": 0.001085,
+      "delta_success_p": 0.061497,
+      "delta_success_mde80": 0.070334
     }
   ],
   "specification_sign_agreement": [

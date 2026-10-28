@@ -4,12 +4,12 @@ PeerJ Computer Science re-analysis of the locked validation atlas.
 Design principles
 -----------------
 1. Every reported number is computed here from committed trial-level data.
-2. Inference respects the cluster structure (384 clusters = seed × family × draw,
-   12 scenarios each, balanced).
+2. Resampling keeps all family variants and scenarios of each parent draw together
+   (96 seed × parent-draw blocks, 48 trials each), stratified by seed.
 3. Multiplicity is controlled with Holm over locked families.
 4. Effect sizes are reported with 95% cluster-bootstrap intervals and MDE at 80% power.
-5. Strata are described for what they are: cross-fitted *predicted baseline success*
-   terciles from a frozen equation trained on different seeds.
+5. Bands are retrospective baseline-score bands: realised baseline energy enters
+   the score. They are not pre-treatment predictions or validated controllability.
 """
 from __future__ import annotations
 
@@ -31,9 +31,9 @@ Z_80 = 0.8416212335729143
 STRATA = ["low", "transitional", "high"]
 STRATUM_LABEL = {
     "all": "all",
-    "low": "predicted-low",
-    "transitional": "predicted-intermediate",
-    "high": "predicted-high",
+    "low": "retrospective-low",
+    "transitional": "retrospective-intermediate",
+    "high": "retrospective-high",
 }
 
 # Mechanism deltas present in the paired file. Each is a per-pair indicator difference.
@@ -49,14 +49,15 @@ MECH_COLS = {
 }
 
 ENDPOINT_DEFINITIONS = [
-    ("warm", "warm_fraction ≥ 0.50", "fraction of the protocol window with 43 ≤ T ≤ 50 °C"),
-    ("ros", "ros_threshold_fraction ≥ 0.50", "fraction of the window with ROS dose at or above the singlet-oxygen threshold"),
-    ("hypoxia_ok", "hypoxic_failure_fraction ≤ 0.35", "fraction of the window with O2 < 5 µM AND ROS below threshold"),
-    ("safe_heat", "overheat_fraction ≤ 0.05 and max_T ≤ 55 °C", "no thermal injury"),
+    ("warm", "warm_fraction ≥ 0.50", "final-time unweighted radial-node fraction with 43 ≤ T ≤ 50 °C"),
+    ("ros", "ros_threshold_fraction ≥ 0.50", "final-time radial-node fraction with accumulated ROS dose ≥ 0.67 mM"),
+    ("hypoxia_ok", "hypoxic_failure_fraction ≤ 0.35", "final-time radial-node fraction with O2 < 5 µM AND ROS below threshold"),
+    ("safe_heat", "overheat_fraction ≤ 0.05 and max_T ≤ 55 °C", "final-time temperature criterion; not treatment-wide safety"),
     ("success", "warm AND ros AND hypoxia_ok AND safe_heat", "all four criteria simultaneously"),
-    ("thermal_failure", "NOT warm AND safe_heat", "insufficient heating without thermal injury"),
+    ("thermal_failure", "NOT warm AND safe_heat", "not warm while satisfying the final-time temperature criterion"),
     ("ros_failure", "NOT ros", "ROS dose below threshold"),
-    ("overheat_failure", "NOT safe_heat", "thermal injury"),
+    ("overheat_failure", "NOT safe_heat", "failure of the final-time temperature criterion"),
+    ("hypoxic_failure", "NOT hypoxia_ok", "failure of the final-time hypoxia criterion"),
 ]
 
 
@@ -65,7 +66,16 @@ ENDPOINT_DEFINITIONS = [
 def load_paired(base: Path) -> pd.DataFrame:
     p = base / "nature_computational_science" / "data" / "controller_pareto_synthesis" / "controller_family_locked_pairs.csv"
     df = pd.read_csv(p, low_memory=False)
-    df = df.rename(columns={c: c for c in df.columns})
+    df["legacy_cluster_id"] = df["cluster_id"]
+    # make_model_family_draws concatenates four transformed copies of the same
+    # 32-row LHS. Verify its mapping against the upstream atlas before using it.
+    upstream = pd.read_csv(base / "peerj_analysis" / "parent_draw_map.csv")
+    mapping = upstream.drop_duplicates()
+    assert not mapping.duplicated(["validation_seed", "model_family", "atlas_uncertainty_id"]).any()
+    assert (mapping["atlas_uncertainty_id"] % 32 == mapping["uncertainty_id"]).all()
+    df = df.merge(mapping, on=["validation_seed", "model_family", "atlas_uncertainty_id"], validate="many_to_one")
+    assert df["uncertainty_id"].notna().all()
+    df["cluster_id"] = df["validation_seed"].astype(str) + "|" + df["uncertainty_id"].astype(int).astype(str)
     # explicit contract checks
     assert df["success_uplift"].isin([-1, 0, 1]).all(), "success_uplift must be a signed indicator difference"
     assert np.array_equal(
@@ -88,7 +98,7 @@ def load_paired(base: Path) -> pd.DataFrame:
         assert np.allclose(recomputed, df[col]), f"{col} is not to_flag - from_flag"
     # balanced clusters
     sizes = df.groupby(["controller_family", "cluster_id"], observed=True).size()
-    assert sizes.nunique() == 1, "clusters are not balanced"
+    assert sizes.eq(48).all(), "parent blocks must contain four families × 12 scenarios"
     return df
 
 
@@ -119,6 +129,20 @@ def _cluster_arrays(df: pd.DataFrame, col: str):
     return g["sum"].to_numpy(float), g["count"].to_numpy(float)
 
 
+def bootstrap_indices(df: pd.DataFrame, replicates: int, rng) -> np.ndarray:
+    """Resample parent blocks within each represented seed, preserving seed allocation.
+
+    This empirical block bootstrap does not reproduce the LHS randomisation law;
+    its percentile intervals are explicitly approximate sensitivity summaries.
+    """
+    groups = df.groupby("cluster_id", observed=True)["validation_seed"].first()
+    pieces = []
+    for seed in sorted(groups.unique()):
+        positions = np.flatnonzero(groups.to_numpy() == seed)
+        pieces.append(rng.choice(positions, size=(replicates, len(positions)), replace=True))
+    return np.concatenate(pieces, axis=1)
+
+
 def cluster_bootstrap(df: pd.DataFrame, col: str, idx: np.ndarray) -> tuple[float, float, float, float]:
     """Ratio-of-means cluster bootstrap. `idx` is a pre-drawn (B, n_clusters) index array
     shared across columns so that intervals for paired quantities are coherent."""
@@ -130,7 +154,7 @@ def cluster_bootstrap(df: pd.DataFrame, col: str, idx: np.ndarray) -> tuple[floa
 
 
 def cluster_signflip_p(df: pd.DataFrame, col: str, signs: np.ndarray) -> float:
-    """Cluster-level sign-flip randomization test for a zero mean paired difference.
+    """Monte Carlo sign-flip sensitivity test under joint parent-block sign symmetry.
 
     The statistic is the ratio of cluster sums to cluster counts, i.e. exactly the
     estimand reported by `cluster_bootstrap`. Clusters are unbalanced once the data
@@ -171,16 +195,6 @@ def mcnemar_exact(b: int, c: int) -> float:
     return float(binomtest(b, n, 0.5, alternative="two-sided").pvalue)
 
 
-def design_effect(df: pd.DataFrame, col: str) -> float:
-    """Ratio of cluster-robust variance to simple random-sampling variance."""
-    d = df.groupby("cluster_id", observed=True)[col].mean().to_numpy(float)
-    n = len(df)
-    c = len(d)
-    var_cluster = d.var(ddof=1) / c
-    var_srs = df[col].var(ddof=1) / n
-    return float(var_cluster / var_srs) if var_srs > 0 else float("nan")
-
-
 # ----------------------------------------------------------------------------- primary table
 
 def build_primary(df: pd.DataFrame) -> pd.DataFrame:
@@ -191,7 +205,7 @@ def build_primary(df: pd.DataFrame) -> pd.DataFrame:
         for stratum in ["all"] + STRATA:
             sub = cdf if stratum == "all" else cdf[cdf["from_controllability_class"].astype(str) == stratum]
             n_clusters = sub["cluster_id"].nunique()
-            idx = rng.integers(0, n_clusters, size=(B_BOOT, n_clusters))
+            idx = bootstrap_indices(sub, B_BOOT, rng)
             signs = rng.integers(0, 2, size=(B_SIGN, n_clusters), dtype=np.int8) * 2 - 1
 
             row = {
@@ -204,10 +218,11 @@ def build_primary(df: pd.DataFrame) -> pd.DataFrame:
                 "controller_success_rate": float(sub["to_chance_success_int"].mean()),
                 "rescued": int(sub["rescued_success"].sum()),
                 "lost": int(sub["lost_success"].sum()),
-                "design_effect_success": design_effect(sub, "success_uplift"),
             }
             e = effects_for(sub, "success_uplift", idx, signs)
             row.update(e.as_dict("delta_success"))
+            srs_variance = float(sub["success_uplift"].var(ddof=1) / len(sub))
+            row["design_effect_success"] = e.se ** 2 / srs_variance if srs_variance > 0 else np.nan
             row["mcnemar_unclustered_p"] = mcnemar_exact(int(sub["rescued_success"].sum()), int(sub["lost_success"].sum()))
             for name, col in MECH_COLS.items():
                 row.update(effects_for(sub, col, idx, signs).as_dict(f"delta_{name}"))
@@ -223,15 +238,12 @@ def build_primary(df: pd.DataFrame) -> pd.DataFrame:
     )
     # Holm over the mechanism family: 5 endpoints x 4 controllers at the all-stratum level (20 tests)
     mech_names = ["thermal_failure", "ros_failure", "hypoxic_failure", "overheat_failure", "energy_j_cm2"]
-    alllev = out[out["stratum"] == "all"]
+    cells = [(i, name) for i in out.index[out["stratum"] == "all"] for name in mech_names]
+    adjusted = holm([out.at[i, f"delta_{name}_p"] for i, name in cells])
     for name in mech_names:
-        pcol = f"delta_{name}_p"
-        vals = alllev[pcol].tolist()
-        adj = holm(vals)
-        mapping = dict(zip(alllev["controller"], adj))
-        out[f"delta_{name}_p_holm"] = out.apply(
-            lambda r, c=pcol, m=mapping: m.get(r["controller"]) if r["stratum"] == "all" else np.nan, axis=1
-        )
+        out[f"delta_{name}_p_holm"] = np.nan
+    for (i, name), value in zip(cells, adjusted):
+        out.at[i, f"delta_{name}_p_holm"] = value
     return out
 
 
@@ -270,7 +282,7 @@ def build_specification_curve(df: pd.DataFrame) -> pd.DataFrame:
                         continue
                     # paired, cluster-robust
                     n_clusters = sub["cluster_id"].nunique()
-                    idx = np.random.default_rng(SEED).integers(0, n_clusters, size=(2000, n_clusters))
+                    idx = bootstrap_indices(sub, 2000, np.random.default_rng(SEED))
                     est, lo, hi, se = cluster_bootstrap(sub, "success_uplift", idx)
                     # naive: unpaired difference of proportions, no clustering
                     p_from = sub["from_chance_success_int"].mean()
@@ -392,8 +404,8 @@ def build_strata_audit(base: Path, df: pd.DataFrame) -> tuple[pd.DataFrame, dict
         pos, neg = s[y == 1], s[y == 0]
         if len(pos) == 0 or len(neg) == 0:
             return float("nan")
-        order = np.argsort(np.concatenate([pos, neg]))
-        ranks = np.empty(len(order)); ranks[order] = np.arange(1, len(order) + 1)
+        from scipy.stats import rankdata
+        ranks = rankdata(np.concatenate([pos, neg]), method="average")
         return float((ranks[: len(pos)].sum() - len(pos) * (len(pos) + 1) / 2) / (len(pos) * len(neg)))
 
     cdf = df[df["controller_family"] == "Constrained optimized"]
@@ -438,6 +450,7 @@ def build_strata_audit(base: Path, df: pd.DataFrame) -> tuple[pd.DataFrame, dict
         "observed_success_by_stratum": {
             k: float(v) for k, v in cdf.groupby(cdf["from_controllability_class"].astype(str), observed=True)["from_chance_success_int"].mean().items()
         },
+        "mean_predicted_by_stratum": cdf.groupby("from_controllability_class", observed=True)["from_predicted_probability"].mean().to_dict(),
     }
     return detail, facts
 
@@ -463,6 +476,33 @@ def run(base: Path, out_dir: Path) -> dict:
 
     strata_detail, strata_facts = build_strata_audit(base, df)
     strata_detail.to_csv(out_dir / "strata_audit.csv", index=False)
+    cdf = df[df.controller_family == "Constrained optimized"]
+    calibration = cdf.groupby("from_controllability_class", observed=True).agg(
+        n=("success_uplift", "size"), n_parent_blocks=("cluster_id", "nunique"),
+        observed_success=("from_chance_success_int", "mean"),
+        mean_predicted=("from_predicted_probability", "mean")).reset_index()
+    calibration.to_csv(out_dir / "band_calibration.csv", index=False)
+    seed_effects = df.groupby(["controller_family", "validation_seed"], observed=True)["success_uplift"].agg(["mean", "size"]).reset_index()
+    seed_effects.to_csv(out_dir / "seed_effects.csv", index=False)
+    # Joint warm/safe endpoint transitions prevent misreading reduced thermal
+    # failure (which excludes overheated cases) as improved heating reliability.
+    transitions = []
+    for controller, g in df.groupby("controller_family", observed=True):
+        for prefix in ["from", "to"]:
+            warm = g[f"{prefix}_warm_fraction"] >= .5
+            safe = ~g[f"{prefix}_overheat_failure"].astype(bool)
+            for w in [False, True]:
+                for s in [False, True]:
+                    transitions.append(dict(controller=controller, policy=prefix, warm=w, safe=s,
+                                            n=int(((warm == w) & (safe == s)).sum()),
+                                            rate=float(((warm == w) & (safe == s)).mean())))
+    pd.DataFrame(transitions).to_csv(out_dir / "warm_safe_joint.csv", index=False)
+    # A familywise MDE guarantee is not claimed. Bonferroni gives a conservative
+    # planning reference for the 12 band tests under a normal approximation.
+    from scipy.stats import norm
+    precision = primary[["controller", "stratum", "delta_success_se", "delta_success_mde80"]].copy()
+    precision["bonferroni12_mde80_approx"] = (norm.ppf(1 - .05 / 24) + Z_80) * precision.delta_success_se
+    precision.to_csv(out_dir / "precision_audit.csv", index=False)
 
     endpoints = pd.DataFrame(ENDPOINT_DEFINITIONS, columns=["criterion", "rule", "meaning"])
     endpoints.to_csv(out_dir / "endpoint_definitions.csv", index=False)
@@ -494,4 +534,12 @@ def run(base: Path, out_dir: Path) -> dict:
         "specification_sign_agreement": stability.round(4).to_dict(orient="records"),
     }
     (out_dir / "analysis_summary.json").write_text(json.dumps(summary, indent=2))
+    import importlib.metadata
+    import platform
+    packages = ["numpy", "pandas", "scipy", "matplotlib", "Pillow", "python-docx"]
+    environment = {"python": platform.python_version(), "os": platform.system(),
+                   "os_release": platform.release(), "machine": platform.machine(),
+                   "processor": platform.processor(), "gpu_used": False,
+                   "packages": {name: importlib.metadata.version(name) for name in packages}}
+    (out_dir / "environment_versions.json").write_text(json.dumps(environment, indent=2), encoding="utf-8")
     return summary

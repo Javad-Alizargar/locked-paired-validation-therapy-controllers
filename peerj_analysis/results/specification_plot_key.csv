@@ -1,0 +1,65 @@
+controller,plot_position,seed_subset,scenarios,primary,delta,ci_low,ci_high
+Constrained optimized,1,20260720,delayed (>=120 s),False,-0.103515625,-0.21484375,4.8828124999733546e-05
+Constrained optimized,2,20260722,delayed (>=120 s),False,-0.09375,-0.19140625,0.009765625
+Constrained optimized,3,all seeds,delayed (>=120 s),False,-0.07942708333333333,-0.140625,-0.018880208333333332
+Constrained optimized,4,20260721,delayed (>=120 s),False,-0.041015625,-0.15625,0.06645507812499973
+Constrained optimized,5,20260720,noisy (10%),False,-0.024739583333333332,-0.09638671875,0.046875
+Constrained optimized,6,20260720,all_scenarios,False,-0.024088541666666668,-0.095703125,0.046875
+Constrained optimized,7,20260722,all_scenarios,False,-0.022786458333333332,-0.083349609375,0.042317708333333336
+Constrained optimized,8,20260722,noisy (10%),False,-0.016927083333333332,-0.0859375,0.052115885416666494
+Constrained optimized,9,all seeds,all_scenarios,True,-0.006944444444444444,-0.046440972222222224,0.030821397569444416
+Constrained optimized,10,all seeds,noisy (10%),False,-0.00390625,-0.04513888888888889,0.035590277777777776
+Constrained optimized,11,20260721,all_scenarios,False,0.026041666666666668,-0.042317708333333336,0.09700520833333333
+Constrained optimized,12,20260721,noisy (10%),False,0.029947916666666668,-0.03909505208333333,0.10026041666666667
+Constrained optimized,13,20260722,"nominal (0 s delay, 0% noise)",False,0.0859375,0.0078125,0.171875
+Constrained optimized,14,all seeds,"nominal (0 s delay, 0% noise)",False,0.10677083333333333,0.059895833333333336,0.15625
+Constrained optimized,15,20260720,"nominal (0 s delay, 0% noise)",False,0.109375,0.03125,0.1953125
+Constrained optimized,16,20260721,"nominal (0 s delay, 0% noise)",False,0.125,0.046875,0.21875
+Smoothed predictive,1,20260720,delayed (>=120 s),False,-0.099609375,-0.19921875,0.0
+Smoothed predictive,2,20260722,delayed (>=120 s),False,-0.0703125,-0.169921875,0.033203125
+Smoothed predictive,3,20260720,noisy (10%),False,-0.061197916666666664,-0.13020833333333334,0.005208333333333333
+Smoothed predictive,4,all seeds,delayed (>=120 s),False,-0.050130208333333336,-0.11004231770833334,0.009781901041666577
+Smoothed predictive,5,20260720,all_scenarios,False,-0.037760416666666664,-0.09765625,0.022151692708333247
+Smoothed predictive,6,all seeds,noisy (10%),False,-0.02734375,-0.06424696180555554,0.011295572916666607
+Smoothed predictive,7,20260722,all_scenarios,False,-0.024088541666666668,-0.07879231770833334,0.03061523437499991
+Smoothed predictive,8,20260722,noisy (10%),False,-0.01953125,-0.0859375,0.041666666666666664
+Smoothed predictive,9,all seeds,all_scenarios,True,-0.018446180555555556,-0.05100368923611111,0.014545355902777748
+Smoothed predictive,10,20260721,noisy (10%),False,-0.0013020833333333333,-0.06380208333333333,0.061197916666666664
+Smoothed predictive,11,20260721,"nominal (0 s delay, 0% noise)",False,0.0,0.0,0.0
+Smoothed predictive,12,20260722,"nominal (0 s delay, 0% noise)",False,0.0,0.0,0.0
+Smoothed predictive,13,all seeds,"nominal (0 s delay, 0% noise)",False,0.0026041666666666665,0.0,0.0078125
+Smoothed predictive,14,20260721,all_scenarios,False,0.006510416666666667,-0.044270833333333336,0.059895833333333336
+Smoothed predictive,15,20260720,"nominal (0 s delay, 0% noise)",False,0.0078125,0.0,0.0234375
+Smoothed predictive,16,20260721,delayed (>=120 s),False,0.01953125,-0.089892578125,0.134765625
+Thermal-floor predictive,1,20260722,delayed (>=120 s),False,-0.173828125,-0.279296875,-0.068359375
+Thermal-floor predictive,2,20260720,delayed (>=120 s),False,-0.1640625,-0.267578125,-0.060546875
+Thermal-floor predictive,3,all seeds,delayed (>=120 s),False,-0.13802083333333334,-0.198583984375,-0.07615559895833342
+Thermal-floor predictive,4,20260720,noisy (10%),False,-0.0859375,-0.17578125,0.0052408854166664885
+Thermal-floor predictive,5,20260720,all_scenarios,False,-0.08138020833333333,-0.16865234375,0.007161458333333333
+Thermal-floor predictive,6,20260721,delayed (>=120 s),False,-0.076171875,-0.18359375,0.033203125
+Thermal-floor predictive,7,20260722,all_scenarios,False,-0.052734375,-0.132177734375,0.02670898437499991
+Thermal-floor predictive,8,all seeds,all_scenarios,True,-0.04861111111111111,-0.098095703125,0.001736111111111111
+Thermal-floor predictive,9,all seeds,noisy (10%),False,-0.044270833333333336,-0.09635416666666667,0.008246527777777778
+Thermal-floor predictive,10,20260722,noisy (10%),False,-0.040364583333333336,-0.12760416666666666,0.045572916666666664
+Thermal-floor predictive,11,20260721,all_scenarios,False,-0.01171875,-0.091796875,0.07356770833333333
+Thermal-floor predictive,12,20260721,noisy (10%),False,-0.006510416666666667,-0.08984375,0.0859375
+Thermal-floor predictive,13,20260720,"nominal (0 s delay, 0% noise)",False,0.078125,0.015625,0.1484375
+Thermal-floor predictive,14,all seeds,"nominal (0 s delay, 0% noise)",False,0.10416666666666667,0.059895833333333336,0.15364583333333334
+Thermal-floor predictive,15,20260721,"nominal (0 s delay, 0% noise)",False,0.1171875,0.046875,0.203125
+Thermal-floor predictive,16,20260722,"nominal (0 s delay, 0% noise)",False,0.1171875,0.0234375,0.2109375
+Reduced-order MPC,1,20260722,"nominal (0 s delay, 0% noise)",False,-0.6171875,-0.7658203125,-0.453125
+Reduced-order MPC,2,20260720,"nominal (0 s delay, 0% noise)",False,-0.609375,-0.765625,-0.45292968750000107
+Reduced-order MPC,3,all seeds,"nominal (0 s delay, 0% noise)",False,-0.59375,-0.6901041666666666,-0.5
+Reduced-order MPC,4,20260721,"nominal (0 s delay, 0% noise)",False,-0.5546875,-0.703125,-0.3828125
+Reduced-order MPC,5,20260720,noisy (10%),False,-0.4778645833333333,-0.5911783854166667,-0.3671875
+Reduced-order MPC,6,20260720,all_scenarios,False,-0.4700520833333333,-0.581396484375,-0.3619791666666667
+Reduced-order MPC,7,20260722,noisy (10%),False,-0.45703125,-0.5729166666666666,-0.3385416666666667
+Reduced-order MPC,8,20260722,all_scenarios,False,-0.4453125,-0.5618489583333334,-0.32809244791666686
+Reduced-order MPC,9,all seeds,noisy (10%),False,-0.4418402777777778,-0.5091254340277778,-0.3767252604166667
+Reduced-order MPC,10,all seeds,all_scenarios,True,-0.4322916666666667,-0.4978298611111111,-0.3669650607638889
+Reduced-order MPC,11,20260721,noisy (10%),False,-0.390625,-0.4895833333333333,-0.2786132812500002
+Reduced-order MPC,12,20260721,all_scenarios,False,-0.3815104166666667,-0.482421875,-0.2708170572916667
+Reduced-order MPC,13,20260720,delayed (>=120 s),False,-0.380859375,-0.490283203125,-0.27534179687500027
+Reduced-order MPC,14,20260722,delayed (>=120 s),False,-0.34375,-0.447265625,-0.2421875
+Reduced-order MPC,15,all seeds,delayed (>=120 s),False,-0.3352864583333333,-0.3938802083333333,-0.2786458333333333
+Reduced-order MPC,16,20260721,delayed (>=120 s),False,-0.28125,-0.375048828125,-0.185546875

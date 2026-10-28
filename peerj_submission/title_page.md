@@ -2,7 +2,7 @@
 
 ## Article title
 
-Locked paired validation of closed-loop therapy software: controller rankings are not robust to analysis choices
+Reproducible paired evaluation of closed-loop therapy software: controller comparisons depend on sampling and scenario choices
 
 ## Article type
 
@@ -36,12 +36,12 @@ closed-loop control; therapy software; validation protocol; cluster bootstrap; p
 
 ## Short title
 
-Locked paired validation of therapy controllers
+Reproducible evaluation of therapy controllers
 
 ## Word count
 
-- Main text (Introduction through Conclusions): approximately 5,900 words
-- Abstract: 337 words (2,497 characters)
+- Main text (Introduction through Conclusions): approximately 5,154 words
+- Abstract: 302 words (2284 characters)
 - Tables: 3 main, 3 supplementary
 - Figures: 5 main
 

@@ -42,9 +42,9 @@ CTRL_SHORT = {
 STRATUM_ORDER = ["all", "low", "transitional", "high"]
 STRATUM_NAME = {
     "all": "All",
-    "low": "Predicted-low",
-    "transitional": "Predicted-intermediate",
-    "high": "Predicted-high",
+    "low": "Low score",
+    "transitional": "Intermediate score",
+    "high": "High score",
 }
 
 
@@ -77,16 +77,16 @@ def figure1() -> None:
     ys = [71, 41, 11]
     xs = [2, 35.5, 69]
 
-    box(xs[0], ys[0], W, H, "Design freeze\n3 seeds x 4 model families\nx 32 draws x 12 scenarios\n= 4,608 pairs per controller", "#e7f5ff")
-    box(xs[1], ys[0], W, H, "Frozen scoring rule\ntrained on independent seeds,\nthen applied unchanged", "#e7f5ff")
-    box(xs[2], ys[0], W, H, "Four controller families\nfull feedback (baseline)\nsmoothed / thermal-floor\nconstrained / reduced-order MPC", "#e7f5ff")
+    box(xs[0], ys[0], W, H, "Sampling structure\n3 seeds x 32 parent draws\nx 4 families x 12 scenarios\n96 blocks; 4,608 pairs", "#e7f5ff")
+    box(xs[1], ys[0], W, H, "Retrospective baseline score\nincludes realised energy;\nnot a pre-treatment rule", "#e7f5ff")
+    box(xs[2], ys[0], W, H, "Four alternatives + baseline\nfull feedback (baseline)\nsmoothed / thermal-floor\nconstrained / reduced-order MPC", "#e7f5ff")
 
     box(xs[0], ys[1], W, H, "Paired comparison\nidentical seed, family,\ndraw, delay and noise", "#f8f9fa")
-    box(xs[1], ys[1], W, H, "Cluster-robust inference\nbootstrap + permutation\nHolm correction, MDE", "#f8f9fa")
+    box(xs[1], ys[1], W, H, "Approximate block summaries\nseed-stratified bootstrap\nexploratory tests + Holm", "#f8f9fa")
     box(xs[2], ys[1], W, H, "Multi-endpoint reporting\nsuccess, four failure modes,\nenergy, Pareto, weights", "#f8f9fa")
 
-    box(xs[0], ys[2], W, H, "Specification curve\nseed x scenario x estimator\nx stratum", "#fff4e6")
-    box(xs[1], ys[2], W, H, "Falsification checks\nno winner from a single\nrate or a single weighting", "#fff4e6")
+    box(xs[0], ys[2], W, H, "Population sensitivity\nseed and scenario subsets\nmarked primary specification", "#fff4e6")
+    box(xs[1], ys[2], W, H, "Explicit interpretation\nfinal-time spatial endpoints\nconditional preference ranks", "#fff4e6")
     box(xs[2], ys[2], W, H, "Reproducible artefact\none entry point regenerates\nall tables and figures", "#fff4e6")
 
     for y in ys:
@@ -96,7 +96,7 @@ def figure1() -> None:
         arrow(x + W / 2, ys[0], x + W / 2, ys[1] + H)
         arrow(x + W / 2, ys[1], x + W / 2, ys[2] + H)
 
-    ax.text(50, 96.5, "Locked paired-validation protocol", ha="center", fontsize=9.2, weight="bold")
+    ax.text(50, 96.5, "Reproducible paired-evaluation workflow", ha="center", fontsize=9.2, weight="bold")
     _save(fig, "Figure 1.png")
 
 
@@ -131,7 +131,7 @@ def figure2() -> None:
     ax.invert_yaxis()
     ax.set_xlabel("Paired change in success probability (controller minus full-feedback baseline)")
     ax.set_xlim(-0.78, 0.20)
-    ax.set_title("No controller improves overall success; predicted-low gains are not significant after correction",
+    ax.set_title("Overall estimates are negative; retrospective low-band intervals include zero",
                  fontsize=8.6, loc="left")
     ax.grid(axis="x", color="#dee2e6", lw=0.6, zorder=0)
     ax.set_axisbelow(True)
@@ -151,7 +151,8 @@ def figure3() -> None:
         ("delta_energy_j_cm2", "Delivered energy", "Change (J cm$^{-2}$)"),
     ]
     fig, axes = plt.subplots(1, 4, figsize=(7.4, 3.1), sharey=True)
-    for ax, (col, title, xlabel) in zip(axes, metrics):
+    for panel_index, (ax, (col, title, xlabel)) in enumerate(zip(axes, metrics)):
+        title = chr(65 + panel_index) + ". " + title
         for i, c in enumerate(ctrls):
             r = alllev.loc[c]
             lo, hi = r[f"{col}_ci_low"], r[f"{col}_ci_high"]
@@ -193,8 +194,8 @@ def figure4() -> None:
         ax.tick_params(labelsize=6.4)
         ax.grid(color="#dee2e6", lw=0.5); ax.set_axisbelow(True)
 
-    panel(ax1, "delta_overheat_failure", "Change in overheating rate", "Safety trade-off")
-    panel(ax2, "delta_energy_j_cm2", "Change in delivered energy (J cm$^{-2}$)", "Energy trade-off")
+    panel(ax1, "delta_overheat_failure", "Change in overheating rate", "A. Final-temperature trade-off")
+    panel(ax2, "delta_energy_j_cm2", "Change in delivered energy (J cm$^{-2}$)", "B. Energy trade-off")
 
     order = w.sort_values("p_rank1", ascending=True).index
     ax3.barh(range(len(order)), w.loc[order, "p_rank1"],
@@ -203,10 +204,10 @@ def figure4() -> None:
     ax3.set_yticklabels([CTRL_SHORT[c] for c in order], fontsize=6.6)
     ax3.set_xlabel("Probability of ranking first\nunder random objective weights", fontsize=7.0)
     ax3.set_xlim(0, 0.55)
-    ax3.set_title("No robust winner", fontsize=7.8)
+    ax3.set_title("C. Conditional rank frequency", fontsize=7.8)
     ax3.grid(axis="x", color="#dee2e6", lw=0.5); ax3.set_axisbelow(True)
     for i, c in enumerate(order):
-        ax3.text(w.loc[c, "p_rank1"] + 0.01, i, f"{w.loc[c, 'p_rank1']:.0%}", va="center", fontsize=6.4)
+        ax3.text(w.loc[c, "p_rank1"] + 0.01, i, f"{w.loc[c, 'p_rank1']:.1%}", va="center", fontsize=6.4)
     ax3.tick_params(labelsize=6.4)
 
     handles = [
@@ -227,23 +228,31 @@ def figure5() -> None:
     s = pd.read_csv(RES / "specification_curve.csv")
     s = s[(s.estimator == "paired cluster bootstrap") & (s.stratum == "all")].copy()
     ctrls = list(CTRL_COLOR)
-    fig, axes = plt.subplots(1, 4, figsize=(7.4, 3.4), sharey=True)
-    for ax, c in zip(axes, ctrls):
-        g = s[s.controller == c].sort_values("delta").reset_index(drop=True)
-        colors = ["#c92a2a" if v < 0 else "#2f9e44" for v in g.delta]
-        ax.scatter(range(len(g)), g.delta, c=colors, s=14, zorder=3)
-        ax.axhline(0, color="#343a40", lw=0.9)
-        ax.set_title(CTRL_SHORT[c], fontsize=7.6)
-        ax.set_xlabel("Specification (sorted)")
-        ax.grid(axis="y", color="#dee2e6", lw=0.5)
-        ax.set_axisbelow(True)
-        frac = (g.delta > 0).mean()
-        ax.text(0.04, 0.94, f"{frac:.0%} positive", transform=ax.transAxes,
-                fontsize=7, va="top", color="#495057")
+    fig, axes = plt.subplots(1, 4, figsize=(8.2, 3.8), sharey=True)
+    keys = []
+    for panel_index, (ax, c) in enumerate(zip(axes, ctrls)):
+        g = s[s.controller == c].sort_values(["delta", "seed_subset", "scenarios"]).reset_index(drop=True)
+        for j, r in g.iterrows():
+            primary = r.seed_subset == "all seeds" and r.scenarios == "all_scenarios"
+            color = "#2f9e44" if r.delta > 0 else "#c92a2a" if r.delta < 0 else "#495057"
+            ax.plot([j, j], [r.ci_low, r.ci_high], color=color, lw=.65, alpha=.55)
+            marker = "D" if primary else "^" if r.delta > 0 else "v" if r.delta < 0 else "o"
+            ax.scatter(j, r.delta, color=color, marker=marker, s=22 if primary else 13,
+                       edgecolor="black" if primary else "none", linewidth=.7, zorder=3)
+            keys.append(dict(controller=c, plot_position=j + 1, seed_subset=r.seed_subset,
+                             scenarios=r.scenarios, primary=primary, delta=r.delta,
+                             ci_low=r.ci_low, ci_high=r.ci_high))
+        ax.axhline(0, color="#343a40", lw=.8)
+        ax.set_title(chr(65 + panel_index) + ". " + CTRL_SHORT[c], fontsize=7.2)
+        ax.set_xlabel("Specification (sorted; key in CSV)", fontsize=6.5)
+        ax.grid(axis="y", color="#dee2e6", lw=.5)
+        ax.text(.04, .96, f"{(g.delta > 0).mean():.1%} positive", transform=ax.transAxes,
+                fontsize=6.7, va="top", color="#495057")
     axes[0].set_ylabel("Paired change in success probability")
-    fig.suptitle("Sign of the headline effect flips across defensible analysis choices",
-                 fontsize=8.8, x=0.02, ha="left")
-    fig.tight_layout(rect=[0, 0, 1, 0.92])
+    fig.suptitle("Seed and scenario population sensitivity; diamonds mark primary estimates",
+                 fontsize=8.8, x=.02, ha="left")
+    fig.tight_layout(rect=[0, 0, 1, .92])
+    pd.DataFrame(keys).to_csv(RES / "specification_plot_key.csv", index=False)
     _save(fig, "Figure 5.png")
 
 

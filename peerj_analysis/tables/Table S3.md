@@ -7,4 +7,4 @@
 | Constrained optimized | 0.228 | 0.652 | 0.118 | 2.24 |
 | Reduced-order MPC | 0.107 | 0.183 | 0.723 | 3.43 |
 
-*200,000 draws from a uniform Dirichlet prior over the five objectives (success, thermal failure, ROS failure, overheating, energy), each min-max normalised across controllers before weighting. This replaces the single fixed-weight utility used in the earlier analysis, which is not reproducible as a preference statement.*
+*200,000 Dirichlet(1,1,1,1,1) draws over five objectives (success, thermal failure, ROS failure, overheating, energy), min-max normalised across the four alternatives. Ranks are conditional on these objectives, candidates, normalisation and weight distribution. Pareto membership uses point estimates without uncertainty propagation; the baseline is a reference rather than a fifth candidate.*

@@ -1,0 +1,16 @@
+{
+  "python": "3.12.10",
+  "os": "Windows",
+  "os_release": "10",
+  "machine": "AMD64",
+  "processor": "Intel64 Family 6 Model 85 Stepping 7, GenuineIntel",
+  "gpu_used": false,
+  "packages": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.0",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2",
+    "Pillow": "13.0.0",
+    "python-docx": "1.2.0"
+  }
+}
