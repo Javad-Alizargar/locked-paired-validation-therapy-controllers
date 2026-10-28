@@ -169,8 +169,8 @@ def main() -> None:
              "fraction of the protocol window with 43 ≤ T ≤ 50 °C; overheat_fraction is the fraction with T > 55 °C; "
              "ros_threshold_fraction is the fraction with ROS dose at or above the singlet-oxygen threshold; "
              "hypoxic_failure_fraction is the fraction with O2 < 5 µM and ROS below threshold.")
-    docx_table("Table S1. Frozen endpoint definitions.", notes, hs, rs, OUT / "Supplemental Table S1.docx", widths=[1.3, 2.4, 3.0])
-    md_table("Table S1. Frozen endpoint definitions.", notes, hs, rs, OUT / "Table S1.md")
+    docx_table("Table S2. Frozen endpoint definitions.", notes, hs, rs, OUT / "Supplemental Table S2.docx", widths=[1.3, 2.4, 3.0])
+    md_table("Table S2. Frozen endpoint definitions.", notes, hs, rs, OUT / "Table S2.md")
 
     st = pd.read_csv(RES / "strata_audit.csv")
     hs2 = ["Scope", "Seed", "Model family", "n", "AUC", "Observed success", "Mean predicted"]
@@ -180,9 +180,9 @@ def main() -> None:
               "the external row is a fully held-out seed that was never used to fit or to tune the rule. "
               "Discrimination is modest, which is why strata are reported as predicted-baseline-success bands "
               "rather than as a validated controllability construct.")
-    docx_table("Table S2. Discrimination of the frozen scoring rule.", notes2, hs2, rs2,
-               OUT / "Supplemental Table S2.docx", widths=[1.5, 0.9, 1.1, 0.4, 0.6, 0.9, 0.9])
-    md_table("Table S2. Discrimination of the frozen scoring rule.", notes2, hs2, rs2, OUT / "Table S2.md")
+    docx_table("Table S1. Discrimination of the frozen scoring rule.", notes2, hs2, rs2,
+               OUT / "Supplemental Table S1.docx", widths=[1.5, 0.9, 1.1, 0.4, 0.6, 0.9, 0.9])
+    md_table("Table S1. Discrimination of the frozen scoring rule.", notes2, hs2, rs2, OUT / "Table S1.md")
 
     ws = pd.read_csv(RES / "weight_sensitivity.csv")
     hs3 = ["Controller", "P(rank 1)", "P(top 2)", "P(rank last)", "Mean rank"]

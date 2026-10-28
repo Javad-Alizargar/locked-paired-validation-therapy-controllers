@@ -1,23 +1,14 @@
-**Table S2. Discrimination of the frozen scoring rule.**
+**Table S2. Frozen endpoint definitions.**
 
-| Scope | Seed | Model family | n | AUC | Observed success | Mean predicted |
-| --- | --- | --- | --- | --- | --- | --- |
-| locked validation (seeds 20260720-22) | seed_20260720 | baseline | 384 | 0.727 | 0.576 | 0.558 |
-| locked validation (seeds 20260720-22) | seed_20260720 | large_geometry | 384 | 0.717 | 0.604 | 0.602 |
-| locked validation (seeds 20260720-22) | seed_20260720 | low_photosensitizer | 384 | 0.717 | 0.534 | 0.476 |
-| locked validation (seeds 20260720-22) | seed_20260720 | slow_recovery | 384 | 0.681 | 0.620 | 0.534 |
-| locked validation (seeds 20260720-22) | seed_20260721 | baseline | 384 | 0.664 | 0.542 | 0.555 |
-| locked validation (seeds 20260720-22) | seed_20260721 | large_geometry | 384 | 0.695 | 0.542 | 0.596 |
-| locked validation (seeds 20260720-22) | seed_20260721 | low_photosensitizer | 384 | 0.705 | 0.409 | 0.478 |
-| locked validation (seeds 20260720-22) | seed_20260721 | slow_recovery | 384 | 0.691 | 0.568 | 0.533 |
-| locked validation (seeds 20260720-22) | seed_20260722 | baseline | 384 | 0.590 | 0.625 | 0.556 |
-| locked validation (seeds 20260720-22) | seed_20260722 | large_geometry | 384 | 0.607 | 0.633 | 0.599 |
-| locked validation (seeds 20260720-22) | seed_20260722 | low_photosensitizer | 384 | 0.702 | 0.474 | 0.469 |
-| locked validation (seeds 20260720-22) | seed_20260722 | slow_recovery | 384 | 0.709 | 0.591 | 0.528 |
-| external held-out (different seed) | seed_20260713 | baseline | 960 | 0.586 | 0.525 | 0.497 |
-| external held-out (different seed) | seed_20260713 | large_geometry | 960 | 0.598 | 0.521 | 0.570 |
-| external held-out (different seed) | seed_20260713 | low_photosensitizer | 960 | 0.630 | 0.495 | 0.357 |
-| external held-out (different seed) | seed_20260713 | slow_recovery | 960 | 0.668 | 0.463 | 0.543 |
-| external held-out (different seed) | seed_20260713 | all | 3840 | 0.610 | 0.501 | 0.492 |
+| Criterion | Rule | Meaning |
+| --- | --- | --- |
+| warm | warm_fraction ≥ 0.50 | fraction of the protocol window with 43 ≤ T ≤ 50 °C |
+| ros | ros_threshold_fraction ≥ 0.50 | fraction of the window with ROS dose at or above the singlet-oxygen threshold |
+| hypoxia_ok | hypoxic_failure_fraction ≤ 0.35 | fraction of the window with O2 < 5 µM AND ROS below threshold |
+| safe_heat | overheat_fraction ≤ 0.05 and max_T ≤ 55 °C | no thermal injury |
+| success | warm AND ros AND hypoxia_ok AND safe_heat | all four criteria simultaneously |
+| thermal_failure | NOT warm AND safe_heat | insufficient heating without thermal injury |
+| ros_failure | NOT ros | ROS dose below threshold |
+| overheat_failure | NOT safe_heat | thermal injury |
 
-*Discrimination of the frozen scoring rule. The locked validation rows are the analysis population; the external row is a fully held-out seed that was never used to fit or to tune the rule. Discrimination is modest, which is why strata are reported as predicted-baseline-success bands rather than as a validated controllability construct.*
+*Endpoint definitions were frozen before any controller outcome was examined. warm_fraction is the fraction of the protocol window with 43 ≤ T ≤ 50 °C; overheat_fraction is the fraction with T > 55 °C; ros_threshold_fraction is the fraction with ROS dose at or above the singlet-oxygen threshold; hypoxic_failure_fraction is the fraction with O2 < 5 µM and ROS below threshold.*
