@@ -20,3 +20,7 @@
 16. Panel labels, block counts, manuscript wording and both document versions revised and rebuilt.
 
 The author must verify and approve the revised science and disclosures before journal submission. No new clinical experiment, prospective predictor training, treatment-wide safety simulation or unverified DOI is claimed.
+
+## Reference and claim audit — v1.1.1, 28 October 2026
+
+Verified 42 DOI-bearing references through Crossref and OpenAlex; 29 matched PubMed and were fetched directly through NCBI E-utilities. Searched the four DOI-free entries separately and checked available primary claim evidence. Added five primary model/sampling references, corrected Sebeke pagination, shortened the expanded SciPy consortium roster using the official citation, completed conference pagination/links and qualified the unvalidated 690-to-808 nm photochemical parameter transfer. Figure/table first citations are ordered. See REFERENCE_AUDIT.md and reference_audit/reference_verification.csv. Numerical outcomes and analysis estimates are unchanged. Table S1 displays “validation” rather than a historical “locked validation” source label; no prospective registration is claimed. Revision v1.1.0 remains an identifiable earlier release.

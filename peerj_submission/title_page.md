@@ -40,11 +40,11 @@ Reproducible evaluation of therapy controllers
 
 ## Word count
 
-- Main text (Introduction through Conclusions): approximately 5,154 words
+- Main text (Introduction through Conclusions): approximately 5,307 words
 - Abstract: 302 words (2284 characters)
 - Tables: 3 main, 3 supplementary
 - Figures: 5 main
 
 ## Reporting checklist
 
-No field-specific reporting checklist applies. Statistical reporting follows the journal's requirements for exact p-values, confidence intervals, effect sizes, sample sizes and multiplicity correction. No degrees of freedom are reported because the primary inference uses randomisation and bootstrap procedures rather than parametric tests with a known reference distribution.
+No field-specific reporting checklist applies. Statistical reporting follows the journal's requirements for exact p-values, confidence intervals, effect sizes, sample sizes and multiplicity correction. No degrees of freedom are reported because the reported analyses use exploratory sign-flip and approximate bootstrap procedures rather than parametric tests with a known reference distribution.

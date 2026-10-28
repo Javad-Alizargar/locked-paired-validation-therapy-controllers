@@ -44,4 +44,4 @@ Preserve the author block: Javad Alizargar, Department of Nursing, National Taip
 
 Never read, print, copy or commit anything under D:\PeerJ Computer Science\APIS\. Keep public and private repository visibility unchanged. Sync only release_files.txt contents to the public repository. Exclude credentials, local QA renders, environments and Git internals. Use UTF-8 for writes.
 
-The original DOI 10.5281/zenodo.23726433 identifies v1.0.0. Revision v1.1.0 is supplied as a public release and complete Supplemental Code S1 ZIP. Do not invent a new DOI or imply the original archive contains the revised manuscript.
+The original DOI 10.5281/zenodo.23726433 identifies v1.0.0. Revision v1.1.1 is supplied as a public release and complete Supplemental Code S1 ZIP. Do not invent a new DOI or imply the original archive contains the revised manuscript.

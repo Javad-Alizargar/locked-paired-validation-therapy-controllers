@@ -13,7 +13,7 @@ The contribution concerns reproducible evaluation of scientific control software
 
 No alternative demonstrates improved overall success. Positive low-band estimates are imprecise before and after correction, and their band membership is unavailable before baseline simulation. The revised study makes the limitations of the Latin-hypercube sampling design and sign-flip assumptions explicit. It does not claim a new statistical theorem, clinical efficacy or a winning controller. We believe this auditable software case study fits the journal's computer-science audience.
 
-The manuscript is original and is not under consideration elsewhere. The author declares no competing interests. Original data are archived under DOI 10.5281/zenodo.23726433; revised code, results and manuscript are provided in public release v1.1.0 and the complete Supplemental Code S1 package. The earlier DOI is identified as the earlier version rather than being presented as an archive of the revision.
+The manuscript is original and is not under consideration elsewhere. The author declares no competing interests. Original data are archived under DOI 10.5281/zenodo.23726433; revised code, results and manuscript are provided in public release v1.1.1 and the complete Supplemental Code S1 package. The earlier DOI is identified as the earlier version rather than being presented as an archive of the revision.
 
 Thank you for considering the submission.
 

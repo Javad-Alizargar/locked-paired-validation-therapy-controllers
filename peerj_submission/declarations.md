@@ -22,7 +22,7 @@ Javad Alizargar: Conceptualization, Methodology, Software, Validation, Formal an
 
 ## Data availability
 
-The original trial data and earlier analysis are archived at Zenodo (DOI: 10.5281/zenodo.23726433, version 1.0.0). The revised manuscript, analysis and generated results are supplied in the public repository https://github.com/Javad-Alizargar/locked-paired-validation-therapy-controllers (revision release v1.1.0). The original DOI identifies the earlier version and must not be interpreted as an archive of this revision. The complete revised code and data package is also supplied as Supplemental Code S1 for review.
+The original trial data and earlier analysis are archived at Zenodo (DOI: 10.5281/zenodo.23726433, version 1.0.0). The revised manuscript, analysis and generated results are supplied in the public repository https://github.com/Javad-Alizargar/locked-paired-validation-therapy-controllers (revision release v1.1.1). The original DOI identifies the earlier version and must not be interpreted as an archive of this revision. The complete revised code and data package is also supplied as Supplemental Code S1 for review.
 
 ## Code availability
 

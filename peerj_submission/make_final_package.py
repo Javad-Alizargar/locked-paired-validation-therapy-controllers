@@ -107,6 +107,8 @@ def build(dest: Path) -> None:
     md_to_docx(HERE / "figure_captions.md", dest / "Figure captions.docx")
     md_to_docx(HERE / "declarations.md", dest / "Declarations.docx")
     root = HERE.parent
+    put(root / "REFERENCE_AUDIT.md", "Review-only - reference and claim audit.md")
+    put(root / "reference_audit" / "reference_verification.csv", "Review-only - reference verification.csv")
     manifest = root / "release_files.txt"
     with zipfile.ZipFile(dest / "Supplemental Code S1.zip", "w", zipfile.ZIP_DEFLATED) as archive:
         for name in manifest.read_text(encoding="utf-8").splitlines():
@@ -118,7 +120,7 @@ def build(dest: Path) -> None:
             archive.write(path, name)
     (dest / "00_UPLOAD_GUIDE.md").write_text(
         "# Revised PeerJ Computer Science upload package\n\n"
-        "Revision v1.1.0. Upload Main manuscript.docx as the manuscript; Figure 1–5.png separately; "
+        "Revision v1.1.1. Upload Main manuscript.docx as the manuscript; Figure 1–5.png separately; "
         "Table 1–3.docx separately; Supplemental Table S1–S3.docx and Supplemental Code S1.zip as supplements. "
         "The Review-only manuscript is a reviewer convenience file. Paste figure legends from Figure captions.docx. "
         "Use Declarations.docx for submission fields and Cover letter.docx for the cover letter.\n\n"

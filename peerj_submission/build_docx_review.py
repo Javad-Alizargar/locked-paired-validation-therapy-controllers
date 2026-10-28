@@ -66,11 +66,19 @@ def add_table(doc: Document, num: str) -> None:
     """Reuse the verified standalone table, including widths and paragraph spacing."""
     from copy import deepcopy
     from docx.oxml.ns import qn
+    from docx.oxml import OxmlElement
     filename = f"Supplemental Table {num}.docx" if num.startswith("S") else f"Table {num}.docx"
     source = Document(TABLE_MD / filename)
     for element in source.element.body:
         if element.tag != qn("w:sectPr"):
-            doc.element.body.insert(len(doc.element.body) - 1, deepcopy(element))
+            copied = deepcopy(element)
+            if copied.tag == qn("w:tbl"):
+                first_row = copied.find(qn("w:tr"))
+                if first_row is not None:
+                    properties = first_row.get_or_add_trPr()
+                    if properties.find(qn("w:tblHeader")) is None:
+                        properties.append(OxmlElement("w:tblHeader"))
+            doc.element.body.insert(len(doc.element.body) - 1, copied)
     doc.add_paragraph()
 
 

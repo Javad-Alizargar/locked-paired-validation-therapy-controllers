@@ -141,7 +141,7 @@ def main() -> None:
     note1 = ("All 4,608 paired trials per controller (96 parent blocks; four families × 12 scenarios per block). "
              "Change is the paired risk difference against the same full-feedback baseline, with a 95% "
              "approximate seed-stratified parent-block bootstrap interval (10,000 replicates) and an exploratory sign-flip p-value "
-             "(20,000 permutations). MDE is an approximate unadjusted normal-theory precision summary at 80% power, not a guarantee for Holm or sign-flip testing. It uses the observed "
+             "(20,000 sign vectors). MDE is an approximate unadjusted normal-theory precision summary at 80% power, not a guarantee for Holm or sign-flip testing. It uses the observed "
              "bootstrap standard error. Overall contrasts are descriptive; the declared "
              "exploratory multiplicity family is the 12 controller × band contrasts in Table 3.")
     docx_table("Table 1. Success endpoints across the full simulation atlas.", note1, h1, r1,
@@ -201,7 +201,7 @@ def main() -> None:
 
     st = pd.read_csv(RES / "strata_audit.csv")
     hs2 = ["Scope", "Seed", "Model family", "n", "AUC", "Observed success", "Mean predicted"]
-    rs2 = [[r.scope, r.seed, r.model_family, f"{int(r.n)}", f0(r.auc), f0(r.observed_success), f0(r.mean_predicted)]
+    rs2 = [[r.scope.replace("locked validation", "validation"), r.seed, r.model_family, f"{int(r.n)}", f0(r.auc), f0(r.observed_success), f0(r.mean_predicted)]
            for _, r in st.iterrows()]
     notes2 = ("Retrospective discrimination: the score uses realised baseline average intensity and is not available before treatment. "
               "The external seed was not used to fit the rule. Held-out overall Brier score is 0.265. "

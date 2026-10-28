@@ -107,3 +107,11 @@ scripts/run_feedback_ablation_noise_delay.py
 scripts/run_first_model.py
 scripts/run_predictive_delay_control.py
 scripts/run_robust_chance_optimization.py
+REFERENCE_AUDIT.md
+reference_audit/bibliography.json
+reference_audit/build_audit_report.py
+reference_audit/checks.json
+reference_audit/fetch_records.py
+reference_audit/fetch_remaining.py
+reference_audit/fetch_supplementary_evidence.py
+reference_audit/reference_verification.csv

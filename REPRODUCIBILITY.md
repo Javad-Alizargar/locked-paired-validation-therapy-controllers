@@ -26,4 +26,4 @@ The 16 specifications cross four seed subsets with four scenario populations. Sc
 
 ## Determinism and availability
 
-Run the complete workflow twice and compare CSV/JSON hashes in the pinned environment. DOCX ZIP timestamps do not imply numerical nondeterminism. The original v1.0.0 DOI 10.5281/zenodo.23726433 remains the earlier version. Revised release v1.1.0 and the complete Supplemental Code S1 ZIP supply the corrected artefacts; no new archive DOI is invented.
+Run the complete workflow twice and compare CSV/JSON hashes in the pinned environment. DOCX ZIP timestamps do not imply numerical nondeterminism. The original v1.0.0 DOI 10.5281/zenodo.23726433 remains the earlier version. Revised release v1.1.1 and the complete Supplemental Code S1 ZIP supply the corrected artefacts; no new archive DOI is invented.

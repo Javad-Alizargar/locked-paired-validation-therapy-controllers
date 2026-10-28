@@ -17,7 +17,7 @@ The reproduction script builds statistics, six tables, five figures, the submiss
 
 ## Availability and version history
 
-Original data and earlier v1.0.0 are archived at https://doi.org/10.5281/zenodo.23726433. That DOI does not identify the revised manuscript. Revision release v1.1.0 supplies the corrected sources, results and complete Supplemental Code S1 ZIP for journal review. Do not overwrite the original archive or claim a new DOI before it resolves. Repository visibility is unchanged.
+Original data and earlier v1.0.0 are archived at https://doi.org/10.5281/zenodo.23726433. That DOI does not identify the revised manuscript. Revision release v1.1.1 supplies the corrected sources, results and complete Supplemental Code S1 ZIP for journal review. Do not overwrite the original archive or claim a new DOI before it resolves. Repository visibility is unchanged.
 
 ## Package
 

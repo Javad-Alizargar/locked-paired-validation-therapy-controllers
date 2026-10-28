@@ -1,0 +1,24 @@
+{
+  "references": 46,
+  "doi_references": 42,
+  "figures_first_citation": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+  ],
+  "main_tables_first_citation": [
+    "1",
+    "2",
+    "3"
+  ],
+  "supplementary_tables_first_citation": [
+    "S1",
+    "S2",
+    "S3"
+  ],
+  "abstract_words": 302,
+  "abstract_characters": 2284,
+  "ncbi_records": 29
+}
